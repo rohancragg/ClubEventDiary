@@ -9,6 +9,12 @@ namespace ClubWebDiary.Models
         public ClubDiaryDbContext()
             : base(nameOrConnectionString: "ClubDiary") {}
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ClubDiaryDbContext>());
+        }
 
+        public DbSet<Event> Events { get; set; }
     }
 }
