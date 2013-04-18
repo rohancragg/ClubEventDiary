@@ -12,7 +12,7 @@ using ClubWebDiary.Models;
 namespace ClubWebDiary.Web.Controllers
 {
     [BreezeController]
-    public class BreezeWebApiController : ApiController
+    public class BreezeController : ApiController
     {
         readonly EFContextProvider<ClubDiaryDbContext> _contextProvider =
             new EFContextProvider<ClubDiaryDbContext>();
