@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="ClubWebDiary.Web.MvcApplication" Language="C#" %>

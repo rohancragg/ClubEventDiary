@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0712A3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubEventDiary.Tests", "ClubEventDiary.Tests\ClubEventDiary.Tests.csproj", "{1E477D52-AF5C-4D7E-B4D6-3126EF274310}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubWebDiary.Web", "ClubWebDiary.Web\ClubWebDiary.Web.csproj", "{15BFFC64-2BEE-4EA7-B7EB-0229783A0853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubEventDiary.Model", "ClubEventDiary.Model\ClubEventDiary.Model.csproj", "{EB69B44C-AC26-4BAA-8D9A-4B73B4D3168E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{1E477D52-AF5C-4D7E-B4D6-3126EF274310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E477D52-AF5C-4D7E-B4D6-3126EF274310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E477D52-AF5C-4D7E-B4D6-3126EF274310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BFFC64-2BEE-4EA7-B7EB-0229783A0853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BFFC64-2BEE-4EA7-B7EB-0229783A0853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BFFC64-2BEE-4EA7-B7EB-0229783A0853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BFFC64-2BEE-4EA7-B7EB-0229783A0853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB69B44C-AC26-4BAA-8D9A-4B73B4D3168E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB69B44C-AC26-4BAA-8D9A-4B73B4D3168E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB69B44C-AC26-4BAA-8D9A-4B73B4D3168E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB69B44C-AC26-4BAA-8D9A-4B73B4D3168E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

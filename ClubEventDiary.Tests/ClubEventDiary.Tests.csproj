@@ -59,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClubEventDiary.Model\ClubEventDiary.Model.csproj">
+      <Project>{EB69B44C-AC26-4BAA-8D9A-4B73B4D3168E}</Project>
+      <Name>ClubEventDiary.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClubWebDiary\ClubWebDiary.csproj">
       <Project>{A3F3BB88-E5A5-4FF9-BB9C-FB0128BEF8EF}</Project>
       <Name>ClubWebDiary</Name>
