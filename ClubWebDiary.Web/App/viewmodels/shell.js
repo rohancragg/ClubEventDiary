@@ -15,7 +15,7 @@
         function boot() {
             router.mapNav('home');
             router.mapNav('details');
-            log('Hot Towel SPA Loaded!', null, true);
+            log('Page Loaded!', null, true);
             return router.activate('home');
         }
 
