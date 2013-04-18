@@ -5,35 +5,28 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using Breeze.WebApi;
+
+using ClubWebDiary.Models;
+
 namespace ClubWebDiary.Web.Controllers
 {
+    [BreezeController]
     public class BreezeWebApiController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        readonly EFContextProvider<ClubDiaryDbContext> _contextProvider =
+            new EFContextProvider<ClubDiaryDbContext>();
+
+        [HttpGet]
+        public string MetaData()
         {
-            return new string[] { "value1", "value2" };
+            return _contextProvider.Metadata();
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        [HttpGet]
+        public IQueryable<Event> Events()
         {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            return _contextProvider.Context.Events;
         }
     }
 }
