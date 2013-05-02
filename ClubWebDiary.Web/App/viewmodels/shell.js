@@ -29,6 +29,11 @@
             log('Club Diary Loaded!', null, true);
             return router.activate(config.startModule);
         }
+        
+        function failedInitialization(error) {
+            var msg = 'App initialization failed: ' + error.message;
+            logger.logError(msg, error, system.getModuleId(shell), true);
+        }
 
         function log(msg, data, showToast) {
             logger.log(msg, data, system.getModuleId(shell), showToast);
