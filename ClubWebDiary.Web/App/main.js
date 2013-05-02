@@ -23,6 +23,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'durandal/plu
         
         // Adapt to touch devices
         app.adaptToDevice();
+        
         //Show the app by setting the root view model for our application.
         app.setRoot('viewmodels/shell', 'entrance');
     });

@@ -1,22 +1,33 @@
-﻿define(['durandal/system', 'durandal/plugins/router', 'services/logger'],
-    function (system, router, logger) {
+﻿define(['durandal/system', 'services/logger', 'durandal/plugins/router', 'config', 'services/datacontext'],
+    function (system, logger, router, config, datacontext) {
+        
+        var adminRoutes = ko.computed(function () {
+            return router.allRoutes().filter(function (r) {
+                return r.settings.admin;
+            });
+        });
+
         var shell = {
             activate: activate,
+            adminRoutes: adminRoutes,
             router: router
         };
-        
         return shell;
 
         //#region Internal Methods
         function activate() {
-            return boot();
+            return datacontext.primeData()
+                .then(boot)
+                .fail(failedInitialization);
         }
 
         function boot() {
-            router.mapNav('home');
-            router.mapNav('details');
-            log('Page Loaded!', null, true);
-            return router.activate('home');
+            log('Club Diary Loaded!', null, true);
+            router.map(config.routes);
+            //router.mapNav('home');
+            //router.mapNav('details');
+            log('Club Diary Loaded!', null, true);
+            return router.activate(config.startModule);
         }
 
         function log(msg, data, showToast) {
