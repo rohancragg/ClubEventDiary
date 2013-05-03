@@ -23,8 +23,9 @@
 
             // query to obtain only partial subset of entity properties
             var query = EntityQuery.from('Events')
-                .select('title, eventDate')
-                .orderBy(orderBy.event);
+                .select('id, title, eventDate')
+                .orderBy(orderBy.event)
+                ;
 
             return manager.executeQuery(query)
                 .then(querySucceeded)
@@ -164,7 +165,6 @@
         //function processLookups() {
         //    model.createNullos(manager);
         //}
-
 
         function log(msg, data, showToast) {
             logger.log(msg, data, system.getModuleId(datacontext), showToast);
