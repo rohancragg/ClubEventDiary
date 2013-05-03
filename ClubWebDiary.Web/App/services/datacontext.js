@@ -23,7 +23,8 @@
 
             // query to obtain only partial subset of entity properties
             var query = EntityQuery.from('Events')
-                .select('id, title, eventDate')
+                .select('id, title, description, eventDate')
+                .where('eventDate', '>', new Date(2013, 4, 3))
                 .orderBy(orderBy.event)
                 ;
 
@@ -37,7 +38,7 @@
                 if (eventsObservable) {
                     eventsObservable(list);
                 }
-                log('Retrieved [Event] from remote data source',
+                log('Retrieved [Events] from remote data source',
                     data, true);
             }
         };
