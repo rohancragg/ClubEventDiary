@@ -9,11 +9,11 @@
     <section class="view-list" data-bind="foreach: events">
         <article class="article-left-content">
             <div class="event-brief" title="Go to event details">
-                <img data-bind="attr: { src: Title }" class="img-polaroid"/>
-                <h1 data-bind="text: Title"></h1>
+                <!--<img data-bind="attr: { src: title }" class="img-polaroid"/>-->
+                <h1 data-bind="text: title"></h1>
                 <!--<span data-bind="text: Description"></span>-->
-                <small data-bind="text: EventDate" class="right"></small>
-                <address data-bind="text: Description"></address>
+                <small data-bind="text: eventDate" class="right"></small>
+                <!--<address data-bind="text: description"></address>-->
             </div>
         </article>
     </section>
