@@ -10,11 +10,19 @@
         var orderBy = model.orderBy;
         var entityNames = model.entityNames;
 
-        var getEventPartials = function (eventsObservable, forceRemote) {
+        var getEventForthcomingPartials = function (eventsObservable, forceRemote) {
+            return getEventPartials(eventsObservable, forceRemote, false);
+        };
+
+        var getEventPastPartials = function (eventsObservable, forceRemote) {
+            return getEventPartials(eventsObservable, forceRemote, true);
+        };
+
+        var getEventPartials = function (eventsObservable, forceRemote, past) {
 
             // prefer local cache unless remote requested by view model
             if (!forceRemote) {
-                var p = getLocal('Events', orderBy.event);
+                var p = getLocal('Events', orderBy.event, past);
                 if (p.length > 0) {
                     eventsObservable(p);
                     return Q.resolve();
@@ -23,10 +31,8 @@
 
             // query to obtain only partial subset of entity properties
             var query = EntityQuery.from('Events')
-                .select('id, title, description, eventDate')
-                .where('eventDate', '>', new Date(2013, 4, 3))
-                .orderBy(orderBy.event)
-                ;
+                    .select('id, title, description, eventDate')
+                    .orderBy(orderBy.event);
 
             return manager.executeQuery(query)
                 .then(querySucceeded)
@@ -100,7 +106,8 @@
         // exposing the public interface of the module
         var datacontext = {
             //createSession: createSession,
-            getEventPartials: getEventPartials,
+            getEventForthcomingPartials: getEventForthcomingPartials,
+            getEventPastPartials: getEventPastPartials,
             hasChanges: hasChanges,
             //getEventById: getEventById,
             primeData: primeData,
@@ -111,9 +118,18 @@
 
         //#region Internal methods        
 
-        function getLocal(resource, ordering, includeNullos) {
-            var query = EntityQuery.from(resource)
-                .orderBy(ordering);
+        function getLocal(resource, ordering, includeNullos, past) {
+            var query;
+            if (past) {
+                past = EntityQuery.from(resource)
+                    .where('eventDate', '<', new Date(2013, 4, 3))
+                    .orderBy(ordering);
+            } else {
+                past = EntityQuery.from(resource)
+                    .where('eventDate', '>', new Date(2013, 4, 3))
+                    .orderBy(ordering);
+            }
+
             if (!includeNullos) {
                 query = query.where('id', '!=', 0);
             }
@@ -174,6 +190,6 @@
         function logError(msg, error) {
             logger.logError(msg, error, system.getModuleId(datacontext), true);
         }
-        
+
         //#endregion
     })

@@ -16,11 +16,17 @@
         visible: true,
         caption: '<i class="icon-book"></i> Home'
     }, {
-        url: 'details',
-        moduleId: 'viewmodels/details',
-        name: 'Speakers',
+        url: 'forthcoming',
+        moduleId: 'viewmodels/forthcoming',
+        name: 'Forthcoming',
         visible: true,
-        caption: '<i class="icon-user"></i> Details'
+        caption: '<i class="icon-book"></i> Forthcoming'
+    }, {
+        url: 'past',
+        moduleId: 'viewmodels/past',
+        name: 'Past',
+        visible: true,
+        caption: '<i class="icon-book"></i> Past'
     }];
     /*
     var routes = [{
