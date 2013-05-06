@@ -13,7 +13,7 @@
         function activate() {
 
             logger.log('Past Events View Activated', null, 'home', true);
-            return datacontext.getEventPastPartials(events, true);
+            return datacontext.getEventPastPartials(events);
         }
         //#endregion
     });

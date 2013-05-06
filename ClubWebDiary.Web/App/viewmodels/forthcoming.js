@@ -13,7 +13,7 @@
         function activate() {
 
             logger.log('Forthcoming Events View Activated', null, 'home', true);
-            return datacontext.getEventForthcomingPartials(events, true);
+            return datacontext.getEventForthcomingPartials(events);
         }
         //#endregion
     });

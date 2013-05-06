@@ -21,31 +21,33 @@
         var getEventPartials = function (eventsObservable, forceRemote, past) {
 
             // prefer local cache unless remote requested by view model
-            if (!forceRemote) {
-                var p = getLocal('Events', orderBy.event, past);
+            if (forceRemote) {
+                // query to obtain only partial subset of entity properties
+                var query = EntityQuery.from('Events')
+                        .select('id, title, description, eventDate')
+                        .orderBy(orderBy.event);
+
+                manager.executeQuery(query)
+                    .then(querySucceeded)
+                    .then(dataBind)
+                    .fail(queryFailed);
+            } else {
+                return dataBind();
+            }
+
+            function querySucceeded(data) {
+                partialMapper.mapDtosToEntities(
+                    manager, data.results, entityNames.event, 'id');
+                log('Retrieved [Events] from remote data source', data, true);
+            }
+
+            function dataBind() {
+                var p = getLocal('Events', orderBy.event, false, past);
+                log('Databinding', p, true);
                 if (p.length > 0) {
                     eventsObservable(p);
                     return Q.resolve();
                 }
-            }
-
-            // query to obtain only partial subset of entity properties
-            var query = EntityQuery.from('Events')
-                    .select('id, title, description, eventDate')
-                    .orderBy(orderBy.event);
-
-            return manager.executeQuery(query)
-                .then(querySucceeded)
-                .fail(queryFailed);
-
-            function querySucceeded(data) {
-                var list = partialMapper.mapDtosToEntities(
-                    manager, data.results, entityNames.event, 'id');
-                if (eventsObservable) {
-                    eventsObservable(list);
-                }
-                log('Retrieved [Events] from remote data source',
-                    data, true);
             }
         };
 
@@ -74,7 +76,7 @@
         var primeData = function () {
             var promise = Q.all([
                 //getLookups(),
-                getEventPartials(null, true)])
+                getEventPartials(null, true, false)])
                 .then(applyValidators);
 
             return promise.then(success);
@@ -119,20 +121,19 @@
         //#region Internal methods        
 
         function getLocal(resource, ordering, includeNullos, past) {
-            var query;
+            var query = EntityQuery.from(resource)
+                .orderBy(ordering);
+
             if (past) {
-                past = EntityQuery.from(resource)
-                    .where('eventDate', '<', new Date(2013, 4, 3))
-                    .orderBy(ordering);
+                query = query.where('eventDate', '<', new Date());
             } else {
-                past = EntityQuery.from(resource)
-                    .where('eventDate', '>', new Date(2013, 4, 3))
-                    .orderBy(ordering);
+                query = query.where('eventDate', '>', new Date());
             }
 
             if (!includeNullos) {
                 query = query.where('id', '!=', 0);
             }
+
             return manager.executeQueryLocally(query);
         }
 
