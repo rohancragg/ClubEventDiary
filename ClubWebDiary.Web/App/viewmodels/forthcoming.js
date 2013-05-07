@@ -20,7 +20,7 @@
         
         function gotoDetails (selectedEvent) {
             if (selectedEvent && selectedEvent.id()) {
-                var url = '#/eventdetail/' + selectedEvent.id();
+                var url = '#/eventedit/' + selectedEvent.id();
                 router.navigateTo(url);
             }
         };

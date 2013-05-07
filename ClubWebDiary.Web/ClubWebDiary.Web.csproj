@@ -189,11 +189,13 @@
     <Content Include="App\services\datacontext.js" />
     <Content Include="App\services\logger.js" />
     <Content Include="App\services\model.js" />
+    <Content Include="App\viewmodels\eventedit.js" />
     <Content Include="App\viewmodels\home.js" />
     <Content Include="App\viewmodels\past.js" />
     <Content Include="App\viewmodels\eventdetail.js" />
     <Content Include="App\viewmodels\forthcoming.js" />
     <Content Include="App\viewmodels\shell.js" />
+    <Content Include="App\views\eventedit.html" />
     <Content Include="App\views\forthcoming.html" />
     <Content Include="App\views\past.html" />
     <Content Include="App\views\eventdetail.html" />

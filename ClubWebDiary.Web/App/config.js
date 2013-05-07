@@ -30,7 +30,12 @@
     }, {
         url: 'eventdetail/:id',
         moduleId: 'viewmodels/eventdetail',
-        name: 'Event Detail',
+        name: 'Event Details',
+        visible: false
+    }, {
+        url: 'eventedit/:id',
+        moduleId: 'viewmodels/eventedit',
+        name: 'Edit Event Details',
         visible: false
     }];
     /*
