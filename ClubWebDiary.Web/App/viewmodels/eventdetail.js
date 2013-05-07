@@ -11,7 +11,7 @@
         var activate = function (routeData) {
             var id = parseInt(routeData.id);
             //initLookups();
-            return datacontext.getSessionById(id, event);
+            return datacontext.getEventById(id, event);
         };
 
         var initLookups = function () {

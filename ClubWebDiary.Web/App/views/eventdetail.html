@@ -8,7 +8,7 @@
         <button class="btn btn-info"
                 data-bind="click: save, enable: canSave"><i class="icon-save"></i> Save</button>
         <button class="btn btn-danger"
-                data-bind="click: deleteSession, disable: hasChanges">
+                data-bind="click: deleteEvent, disable: hasChanges">
             <i class="icon-trash"></i> Delete
         </button>
         <i class="icon-asterisk" data-bind="visible: hasChanges"></i>
@@ -22,7 +22,7 @@
         <div class="details-left">
             <div>
                 <label>Event date</label>
-                <input data-bind="value: eventdate" placeholder="Level"/>
+                <input data-bind="value: eventDate" placeholder="Level"/>
             </div>
         </div>
         <div class="details-right">
