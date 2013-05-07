@@ -27,26 +27,14 @@
         name: 'Past',
         visible: true,
         caption: '<i class="icon-book"></i> Past'
+    }, {
+        url: 'eventdetail/:id',
+        moduleId: 'viewmodels/eventdetail',
+        name: 'Event Detail',
+        visible: false
     }];
     /*
-    var routes = [{
-        url: 'sessions',
-        moduleId: 'viewmodels/sessions',
-        name: 'Sessions',
-        visible: true,
-        caption: '<i class="icon-book"></i> Sessions'
-    }, {
-        url: 'speakers',
-        moduleId: 'viewmodels/speakers',
-        name: 'Speakers',
-        visible: true,
-        caption: '<i class="icon-user"></i> Speakers'
-    }, {
-        url: 'sessiondetail/:id',
-        moduleId: 'viewmodels/sessiondetail',
-        name: 'Edit Session',
-        visible: false
-    }, {
+    , {
         url: 'sessionadd',
         moduleId: 'viewmodels/sessionadd',
         name: 'Add Session',

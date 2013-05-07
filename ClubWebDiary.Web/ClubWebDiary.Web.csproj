@@ -191,12 +191,12 @@
     <Content Include="App\services\model.js" />
     <Content Include="App\viewmodels\home.js" />
     <Content Include="App\viewmodels\past.js" />
-    <Content Include="App\viewmodels\details.js" />
+    <Content Include="App\viewmodels\eventdetail.js" />
     <Content Include="App\viewmodels\forthcoming.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\forthcoming.html" />
     <Content Include="App\views\past.html" />
-    <Content Include="App\views\details.html" />
+    <Content Include="App\views\eventdetail.html" />
     <Content Include="App\views\footer.html" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\nav.html" />

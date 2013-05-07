@@ -8,6 +8,7 @@ using System.Web.Http;
 using Breeze.WebApi;
 
 using ClubWebDiary.Models;
+using Newtonsoft.Json.Linq;
 
 namespace ClubWebDiary.Web.Controllers
 {
@@ -21,6 +22,12 @@ namespace ClubWebDiary.Web.Controllers
         public string MetaData()
         {
             return _contextProvider.Metadata();
+        }
+
+        [HttpPost]
+        public SaveResult SaveChanges(JObject saveBundle)
+        {
+            return _contextProvider.SaveChanges(saveBundle);
         }
 
         [HttpGet]

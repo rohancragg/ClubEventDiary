@@ -50,6 +50,37 @@
                 }
             }
         };
+        
+        var getEventById = function (eventId, eventObservable) {
+            // 1st - fetchEntityByKey will look in local cache 
+            // first (because 3rd parm is true) 
+            // if not there then it will go remote
+            return manager.fetchEntityByKey(
+                entityNames.event, eventId, true)
+                .then(fetchSucceeded)
+                .fail(queryFailed);
+
+            // 2nd - Refresh the entity from remote store (if needed)
+            function fetchSucceeded(data) {
+                var event = data.entity;
+                return event.isPartial() ? refreshEvent(event) : eventObservable(event);
+            }
+
+            function refreshEvent(session) {
+                return EntityQuery.fromEntities(session)
+                    .using(manager).execute()
+                    .then(querySucceeded)
+                    .fail(queryFailed);
+            }
+
+            function querySucceeded(data) {
+                var event = data.results[0];
+                event.isPartial(false);
+                log('Retrieved [Event] from remote data source', event, true);
+                return eventObservable(event);
+            }
+
+        };
 
         var cancelChanges = function () {
             manager.rejectChanges();
@@ -111,7 +142,7 @@
             getEventForthcomingPartials: getEventForthcomingPartials,
             getEventPastPartials: getEventPastPartials,
             hasChanges: hasChanges,
-            //getEventById: getEventById,
+            getEventById: getEventById,
             primeData: primeData,
             cancelChanges: cancelChanges,
             saveChanges: saveChanges
