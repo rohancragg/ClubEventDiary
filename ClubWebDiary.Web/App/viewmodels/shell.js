@@ -10,6 +10,7 @@
         var shell = {
             activate: activate,
             adminRoutes: adminRoutes,
+            addEvent: addEvent,
             router: router
         };
         return shell;
@@ -24,10 +25,12 @@
         function boot() {
             log('Club Diary Loaded!', null, true);
             router.map(config.routes);
-            //router.mapNav('home');
-            //router.mapNav('details');
             log('Club Diary Loaded!', null, true);
             return router.activate(config.startModule);
+        }
+        
+        function addEvent(item) {
+            router.navigateTo(item.hash);
         }
         
         function failedInitialization(error) {

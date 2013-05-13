@@ -127,6 +127,10 @@
             }
 
         };
+        
+        var createEvent = function () {
+            return manager.createEntity(entityNames.event);
+        };
 
         // change tracking
 
@@ -145,7 +149,8 @@
             getEventById: getEventById,
             primeData: primeData,
             cancelChanges: cancelChanges,
-            saveChanges: saveChanges
+            saveChanges: saveChanges,
+            createEvent: createEvent
         };
         return datacontext;
 

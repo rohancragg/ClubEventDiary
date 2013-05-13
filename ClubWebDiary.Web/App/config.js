@@ -37,17 +37,14 @@
         moduleId: 'viewmodels/eventedit',
         name: 'Edit Event Details',
         visible: false
-    }];
-    /*
-    , {
-        url: 'sessionadd',
-        moduleId: 'viewmodels/sessionadd',
-        name: 'Add Session',
+    }, {
+        url: 'eventadd',
+        moduleId: 'viewmodels/eventadd',
+        name: 'Add Event',
         visible: false,
-        caption: '<i class="icon-plus"></i> Add Session',
+        caption: '<i class="icon-plus"></i> Add Event',
         settings: { admin: true }
     }];
-    */
 
     var startModule = 'home';
 
