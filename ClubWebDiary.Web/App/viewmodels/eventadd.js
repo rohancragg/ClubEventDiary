@@ -10,7 +10,7 @@
 
         var activate = function (routeData) {
             //initLookups();
-            event(datacontext.createEvent())
+            event(datacontext.createEvent());
         };
 
         var initLookups = function () {
@@ -28,6 +28,7 @@
         });
 
         var cancel = function () {
+            datacontext.cancelChanges();
             goBack();
         };
 
