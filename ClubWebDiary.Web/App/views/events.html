@@ -1,0 +1,20 @@
+﻿<section id="sessions-view" class="view">
+    <header>
+        <h3 class="page-title" data-bind="text: title"></h3>
+        <div class="article-counter">
+            <address data-bind="text: events().length"></address>
+            <address>found</address>
+        </div>
+    </header>
+    <section class="view-list" data-bind="foreach: events">
+        <article class="article-left-content">
+            <div class="event-brief" title="Edit event details">
+                <!--<img data-bind="attr: { src: title }" class="img-polaroid"/>-->
+                <h1 data-bind="text: title"></h1>
+                <!--<span data-bind="text: Description"></span>-->
+                <small data-bind="text: eventDate" class="right"></small>
+                <address data-bind="text: description"></address>
+            </div>
+        </article>
+    </section>
+</section>

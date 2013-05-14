@@ -16,17 +16,11 @@
         visible: true,
         caption: '<i class="icon-book"></i> Home'
     }, {
-        url: 'forthcoming',
-        moduleId: 'viewmodels/forthcoming',
-        name: 'Forthcoming',
+        url: 'events',
+        moduleId: 'viewmodels/events',
+        name: 'All Events',
         visible: true,
-        caption: '<i class="icon-book"></i> Forthcoming'
-    }, {
-        url: 'past',
-        moduleId: 'viewmodels/past',
-        name: 'Past',
-        visible: true,
-        caption: '<i class="icon-book"></i> Past'
+        caption: '<i class="icon-book"></i> All Events'
     }, {
         url: 'eventdetail/:id',
         moduleId: 'viewmodels/eventdetail',
