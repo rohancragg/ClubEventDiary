@@ -106,7 +106,7 @@
 
         var primeData = function () {
             var promise = Q.all([
-                //getLookups(),
+                getLookups(),
                 getEventPartials(null, true, false)])
                 .then(applyValidators);
 
@@ -209,16 +209,16 @@
             return mgr;
         }
 
-        //function getLookups() {
-        //    return EntityQuery.from('Lookups')
-        //        .using(manager).execute()
-        //        .then(processLookups)
-        //        .fail(queryFailed);
-        //}
+        function getLookups() {
+            return EntityQuery.from('Lookups')
+                .using(manager).execute()
+                .then(processLookups)
+                .fail(queryFailed);
+        }
 
-        //function processLookups() {
-        //    model.createNullos(manager);
-        //}
+        function processLookups() {
+            model.createNullos(manager);
+        }
 
         function log(msg, data, showToast) {
             logger.log(msg, data, system.getModuleId(datacontext), showToast);

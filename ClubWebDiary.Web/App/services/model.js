@@ -1,7 +1,7 @@
 ﻿define(['config', 'durandal/system', 'services/logger'],
     function(config, system, logger) {
         //var imageSettings = config.imageSettings;
-        var nulloDate = new Date(1900, 0, 1);
+        var nulloDate = new Date(2013, 0, 1);
         
         var orderBy = {
             event: 'eventDate, title'
@@ -33,10 +33,10 @@
         function createNullos(manager) {
             var unchanged = breeze.EntityState.Unchanged;
 
-            createNullo(entityNames.timeslot, { start: nulloDate, isSessionSlot: true });
-            createNullo(entityNames.room);
-            createNullo(entityNames.track);
-            createNullo(entityNames.speaker, { firstName: ' [Select a person]' });
+            //createNullo(entityNames.timeslot, { start: nulloDate, isSessionSlot: true });
+            //createNullo(entityNames.room);
+            //createNullo(entityNames.track);
+            //createNullo(entityNames.event, { title: ' [Enter an Event Title]', eventDate: nulloDate });
 
             function createNullo(entityName, values) {
                 var initialValues = values
