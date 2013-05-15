@@ -9,49 +9,40 @@
         var manager = configureBreezeManager();
         var orderBy = model.orderBy;
         var entityNames = model.entityNames;
-
-        var getEventForthcomingPartials = function (eventsObservable, forceRemote) {
-            return getEventPartials(eventsObservable, forceRemote, false);
-        };
-
-        var getEventPastPartials = function (eventsObservable, forceRemote) {
-            return getEventPartials(eventsObservable, forceRemote, true);
-        };
-
-        var getEventPartials = function (eventsObservable, forceRemote, past) {
-
-            // prefer local cache unless remote requested by view model
-            if (forceRemote) {
-                // query to obtain only partial subset of entity properties
-                var query = EntityQuery.from('Events')
-                        .select('id, title, description, eventDate')
-                        .orderBy(orderBy.event);
-
-                manager.executeQuery(query)
-                    .then(querySucceeded)
-                    .then(dataBind)
-                    .fail(queryFailed);
-            } else {
-                return dataBind();
-            }
-
-            function querySucceeded(data) {
-                partialMapper.mapDtosToEntities(
-                    manager, data.results, entityNames.event, 'id');
-                log('Retrieved [Events] from remote data source', data, true);
-            }
-
-            function dataBind() {
-                var p = getLocal('Events', orderBy.event, false, past);
-                log('Databinding', p, true);
-                if (p.length > 0) {
+        
+        var getEventPartials = function (eventsObservable, forceRemote) {
+            if (!forceRemote) {
+                var p = getLocal('Events', orderBy.event);
+                if (p.length > 3) {
+                    // Edge case
+                    // We need this check because we may have 1 entity already.
+                    // If we start on a specific person, this may happen. So we check for > 2, really
                     eventsObservable(p);
                     return Q.resolve();
                 }
             }
+
+            var query = EntityQuery.from('Events')
+                        .select('id, title, description, eventDate')
+                        .orderBy(orderBy.event);
+
+            return manager.executeQuery(query)
+                .then(querySucceeded)
+                .fail(queryFailed);
+
+            function querySucceeded(data) {
+                var list = partialMapper.mapDtosToEntities(
+                    manager, data.results, entityNames.event, 'id');
+                if (eventsObservable) {
+                    eventsObservable(list);
+                }
+                log('Retrieved [Events] from remote data source',
+                    data, true);
+            }
         };
         
         var getEventById = function (eventId, eventObservable) {
+            log("Getting Entity by Id", eventId, true);
             // 1st - fetchEntityByKey will look in local cache 
             // first (because 3rd parm is true) 
             // if not there then it will go remote
@@ -66,20 +57,49 @@
                 return event.isPartial() ? refreshEvent(event) : eventObservable(event);
             }
 
-            function refreshEvent(session) {
-                return EntityQuery.fromEntities(session)
+            function refreshEvent(event) {
+                log("Getting full Entity from Partial", event, true);
+                return EntityQuery.fromEntities(event)
                     .using(manager).execute()
-                    .then(querySucceeded)
+                    .then(refreshSucceeded)
                     .fail(queryFailed);
             }
 
-            function querySucceeded(data) {
+            function refreshSucceeded(data) {
                 var event = data.results[0];
                 event.isPartial(false);
                 log('Retrieved [Event] from remote data source', event, true);
                 return eventObservable(event);
             }
 
+        };
+        
+        var primeData = function () {
+            var promise = Q.all([
+                //getLookups(),
+                getEventPartials(null, true)])
+                .then(applyValidators);
+
+            return promise.then(success);
+
+            function success() {
+                //datacontext.lookups = {
+                //rooms: getLocal('Rooms', 'name', true),
+                //tracks: getLocal('Tracks', 'name', true),
+                //timeslots: getLocal('TimeSlots', 'start', true),
+                //speakers: getLocal('Persons', orderBy.speaker, true)
+                //};
+                log('Primed data', null, false);
+            }
+
+            function applyValidators() {
+                //model.applyEventValidators(manager.metadataStore);
+            }
+
+        };
+
+        var createEvent = function () {
+            return manager.createEntity(entityNames.event);
         };
 
         var cancelChanges = function () {
@@ -102,35 +122,7 @@
                 error.message = msg;
                 throw error;
             }
-        };
-
-        var primeData = function () {
-            var promise = Q.all([
-                getLookups(),
-                getEventPartials(null, true, false)])
-                .then(applyValidators);
-
-            return promise.then(success);
-
-            function success() {
-                datacontext.lookups = {
-                    //rooms: getLocal('Rooms', 'name', true),
-                    //tracks: getLocal('Tracks', 'name', true),
-                    //timeslots: getLocal('TimeSlots', 'start', true),
-                    //speakers: getLocal('Persons', orderBy.speaker, true)
-                };
-                log('Primed data', datacontext.lookups);
-            }
-
-            function applyValidators() {
-                //model.applyEventValidators(manager.metadataStore);
-            }
-
-        };
-        
-        var createEvent = function () {
-            return manager.createEntity(entityNames.event);
-        };
+        };      
 
         // change tracking
 
@@ -142,34 +134,34 @@
 
         // exposing the public interface of the module
         var datacontext = {
-            //createSession: createSession,
-            getEventForthcomingPartials: getEventForthcomingPartials,
-            getEventPastPartials: getEventPastPartials,
-            hasChanges: hasChanges,
+            getEventPartials: getEventPartials,
             getEventById: getEventById,
             primeData: primeData,
+            createEvent: createEvent,
             cancelChanges: cancelChanges,
             saveChanges: saveChanges,
-            createEvent: createEvent
+            hasChanges: hasChanges
         };
         return datacontext;
 
         //#region Internal methods        
 
-        function getLocal(resource, ordering, includeNullos, past) {
+        function getLocal(resource, ordering, includeNullos) {
+            
             var query = EntityQuery.from(resource)
                 .orderBy(ordering);
 
-            if (past) {
-                query = query.where('eventDate', '<', new Date());
-            } else {
-                query = query.where('eventDate', '>', new Date());
-            }
+            //if (past) {
+            //    query = query.where('eventDate', '<', new Date());
+            //} else {
+            //    query = query.where('eventDate', '>', new Date());
+            //}
 
             if (!includeNullos) {
                 query = query.where('id', '!=', 0);
             }
 
+            log("Retrieving data locally from Breeze", query, true);
             return manager.executeQueryLocally(query);
         }
 
@@ -209,16 +201,16 @@
             return mgr;
         }
 
-        function getLookups() {
-            return EntityQuery.from('Lookups')
-                .using(manager).execute()
-                .then(processLookups)
-                .fail(queryFailed);
-        }
+        //function getLookups() {
+        //    return EntityQuery.from('Lookups')
+        //        .using(manager).execute()
+        //        .then(processLookups)
+        //        .fail(queryFailed);
+        //}
 
-        function processLookups() {
-            model.createNullos(manager);
-        }
+        //function processLookups() {
+        //    model.createNullos(manager);
+        //}
 
         function log(msg, data, showToast) {
             logger.log(msg, data, system.getModuleId(datacontext), showToast);

@@ -12,8 +12,6 @@
         };
         return vm;
 
-        //#region Internal Methods
-
         function activate() {
 
             logger.log('Events View Activated', null, 'events', true);
@@ -21,10 +19,12 @@
         }
         
         function deactivate() {
+            log("Deactivating");
             events([]);
         };
 
         function refresh() {
+            log("Refreshing");
             return datacontext.getEventPartials(events, true);
         };
         
@@ -48,5 +48,4 @@
             });
         };
         
-        //#endregion
     });
