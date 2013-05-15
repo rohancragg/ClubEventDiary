@@ -193,15 +193,11 @@
     <Content Include="App\viewmodels\eventadd.js" />
     <Content Include="App\viewmodels\eventedit.js" />
     <Content Include="App\viewmodels\home.js" />
-    <Content Include="App\viewmodels\past.js" />
     <Content Include="App\viewmodels\eventdetail.js" />
-    <Content Include="App\viewmodels\forthcoming.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\events.html" />
     <Content Include="App\views\eventadd.html" />
     <Content Include="App\views\eventedit.html" />
-    <Content Include="App\views\forthcoming.html" />
-    <Content Include="App\views\past.html" />
     <Content Include="App\views\eventdetail.html" />
     <Content Include="App\views\footer.html" />
     <Content Include="App\views\home.html" />
@@ -217,6 +213,7 @@
     <Content Include="Content\ie10mobile.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\icon-light-blue-small.png" />
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr.css" />

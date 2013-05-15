@@ -4,6 +4,8 @@
 
         var vm = {
             activate: activate,
+            deactivate: deactivate,
+            refresh: refresh,
             events: events,
             title: 'Events',
             viewAttached: viewAttached
@@ -17,6 +19,14 @@
             logger.log('Events View Activated', null, 'events', true);
             return datacontext.getEventPartials(events);
         }
+        
+        function deactivate() {
+            events([]);
+        };
+
+        function refresh() {
+            return datacontext.getEventPartials(events, true);
+        };
         
         function gotoDetails (selectedEvent) {
             if (selectedEvent && selectedEvent.id()) {
