@@ -22,6 +22,18 @@
         visible: true,
         caption: '<i class="icon-book"></i> All Events'
     }, {
+        url: 'forthcoming',
+        moduleId: 'viewmodels/events',
+        name: 'Forthcoming Events',
+        visible: true,
+        caption: '<i class="icon-book"></i> Forthcoming Events'
+    }, {
+        url: 'past',
+        moduleId: 'viewmodels/events',
+        name: 'Past Events',
+        visible: true,
+        caption: '<i class="icon-book"></i> Past Events'
+    }, {
         url: 'eventdetail/:id',
         moduleId: 'viewmodels/eventdetail',
         name: 'Event Details',

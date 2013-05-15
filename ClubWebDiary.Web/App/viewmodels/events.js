@@ -12,9 +12,16 @@
         };
         return vm;
 
-        function activate() {
+        function activate(routeData) {
 
-            logger.log('Events View Activated', null, 'events', true);
+            logger.log('Events View Activated', routeData, 'events', true);
+            
+            if (routeData.routeInfo.url == "past") {
+                logger.log('Past Events View', null, 'events', true);
+            } else if (routeData.routeInfo.url == "forthcoming") {
+                logger.log('Forthcoming Events View', null, 'events', true);
+            }
+
             return datacontext.getEventPartials(events);
         }
         
