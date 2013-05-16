@@ -16,9 +16,9 @@
 
             logger.log('Events View Activated', routeData, 'events', true);
             
-            if (routeData.routeInfo.url == "past") {
+            if (routeData.when == "past") {
                 logger.log('Past Events View', null, 'events', true);
-            } else if (routeData.routeInfo.url == "forthcoming") {
+            } else if (routeData.when == "forthcoming") {
                 logger.log('Forthcoming Events View', null, 'events', true);
             }
 

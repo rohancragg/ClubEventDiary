@@ -16,23 +16,21 @@
         visible: true,
         caption: '<i class="icon-book"></i> Home'
     }, {
-        url: 'events',
+        url: 'events/:when',
         moduleId: 'viewmodels/events',
         name: 'All Events',
-        visible: true,
+        visible: false,
         caption: '<i class="icon-book"></i> All Events'
     }, {
-        url: 'forthcoming',
-        moduleId: 'viewmodels/events',
-        name: 'Forthcoming Events',
-        visible: true,
-        caption: '<i class="icon-book"></i> Forthcoming Events'
-    }, {
-        url: 'past',
-        moduleId: 'viewmodels/events',
+        url: 'events/past',
         name: 'Past Events',
         visible: true,
         caption: '<i class="icon-book"></i> Past Events'
+    }, {
+        url: 'events/forthcoming',
+        name: 'Forthcoming Events',
+        visible: true,
+        caption: '<i class="icon-book"></i> Forthcoming Events'
     }, {
         url: 'eventdetail/:id',
         moduleId: 'viewmodels/eventdetail',
