@@ -32,7 +32,7 @@
                 //}
             }
             query = EntityQuery.from('Events')
-                .select('id, title, description, eventDate')
+                .select('id, title, shortDescription, eventDate')
                 .orderBy(orderBy.event);
             return manager.executeQuery(query)
                 .then(querySucceeded)

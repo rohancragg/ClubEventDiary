@@ -2,29 +2,36 @@
     <h3 class="page-title" data-bind="text: title"></h3>
     <div class="button-bar">
         <button class="btn btn-info"
-            data-bind="click: cancel, enable: canSave"><i class="icon-undo"></i> Cancel</button>
+            data-bind="click: cancel, enable: canSave">
+            <i class="icon-undo"></i>Cancel</button>
         <button class="btn btn-info"
-                data-bind="click: save, enable: canSave"><i class="icon-save"></i> Save</button>
+            data-bind="click: save, enable: canSave">
+            <i class="icon-save"></i>Save</button>
         <i class="icon-asterisk" data-bind="visible: hasChanges"></i>
     </div>
-    <div data-bind="with: event">    
+    <div data-bind="with: event">
         <div class="titleblock">
             <label for="title">Title</label>
-            <input id="title" data-bind="value: title" 
-                placeholder="Event title"/>
+            <input id="title" data-bind="value: title"
+                placeholder="Event title" />
         </div>
         <div class="details-left">
             <div>
                 <label>Event date</label>
-                <input data-bind="value: eventDate" placeholder="Enter a Date and Time"/>
+                <input data-bind="value: eventDate" placeholder="Enter a Date and Time" />
             </div>
         </div>
         <div class="details-right">
             <div>
-                <label>Description</label>
-                <textarea data-bind="value: description" 
-                    placeholder="Enter description"></textarea>
+                <label>Short Description</label>
+                <textarea data-bind="value: shortDescription"
+                    placeholder="Enter Short Description"></textarea>
             </div>
-        </div>
+            <div>
+                <label>Full Description</label>
+                <textarea data-bind="value: fullDescription"
+                    placeholder="Enter Full Description"></textarea>
+            </div>
+    </div>
     </div>
 </section>
