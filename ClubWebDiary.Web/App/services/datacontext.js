@@ -10,22 +10,30 @@
         var orderBy = model.orderBy;
         var entityNames = model.entityNames;
         
-        var getEventPartials = function (eventsObservable, forceRemote) {
+        var getEventPartials = function (eventsObservable, when, forceRemote) {
+            var query;
             if (!forceRemote) {
-                var p = getLocal('Events', orderBy.event);
-                if (p.length > 3) {
+                query = buildQueryLocal('Events', orderBy.event);
+                if (when == "past") {
+                    query = query.where('eventDate', '<', new Date());
+                } else if (when == "forthcoming") {
+                    query = query.where('eventDate', '>', new Date());
+                }
+                
+                log("Retrieving data locally from Breeze", query, true);
+                var partials = manager.executeQueryLocally(query);
+                
+                //if (partials.length > 3) {
                     // Edge case
                     // We need this check because we may have 1 entity already.
                     // If we start on a specific person, this may happen. So we check for > 2, really
-                    eventsObservable(p);
+                    eventsObservable(partials);
                     return Q.resolve();
-                }
+                //}
             }
-
-            var query = EntityQuery.from('Events')
-                        .select('id, title, description, eventDate')
-                        .orderBy(orderBy.event);
-
+            query = EntityQuery.from('Events')
+                .select('id, title, description, eventDate')
+                .orderBy(orderBy.event);
             return manager.executeQuery(query)
                 .then(querySucceeded)
                 .fail(queryFailed);
@@ -77,7 +85,7 @@
         var primeData = function () {
             var promise = Q.all([
                 //getLookups(),
-                getEventPartials(null, true)])
+                getEventPartials(null, null, true)])
                 .then(applyValidators);
 
             return promise.then(success);
@@ -146,23 +154,16 @@
 
         //#region Internal methods        
 
-        function getLocal(resource, ordering, includeNullos) {
+        function buildQueryLocal(resource, ordering, includeNullos) {
             
             var query = EntityQuery.from(resource)
                 .orderBy(ordering);
-
-            //if (past) {
-            //    query = query.where('eventDate', '<', new Date());
-            //} else {
-            //    query = query.where('eventDate', '>', new Date());
-            //}
 
             if (!includeNullos) {
                 query = query.where('id', '!=', 0);
             }
 
-            log("Retrieving data locally from Breeze", query, true);
-            return manager.executeQueryLocally(query);
+            return query;
         }
 
         function getErrorMessages(error) {

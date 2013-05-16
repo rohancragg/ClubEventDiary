@@ -1,6 +1,7 @@
 ﻿define(['services/logger', 'services/datacontext', 'durandal/plugins/router'],
     function (logger, datacontext, router) {
         var events = ko.observableArray();
+        var when;
 
         var vm = {
             activate: activate,
@@ -15,14 +16,16 @@
         function activate(routeData) {
 
             logger.log('Events View Activated', routeData, 'events', true);
-            
-            if (routeData.when == "past") {
+
+            when = routeData.when;
+
+            if (when == "past") {
                 logger.log('Past Events View', null, 'events', true);
-            } else if (routeData.when == "forthcoming") {
+            } else if (when == "forthcoming") {
                 logger.log('Forthcoming Events View', null, 'events', true);
             }
 
-            return datacontext.getEventPartials(events);
+            return datacontext.getEventPartials(events, when, false);
         }
         
         function deactivate() {
@@ -32,7 +35,7 @@
 
         function refresh() {
             log("Refreshing");
-            return datacontext.getEventPartials(events, true);
+            return datacontext.getEventPartials(events, when, true);
         };
         
         function gotoDetails (selectedEvent) {
