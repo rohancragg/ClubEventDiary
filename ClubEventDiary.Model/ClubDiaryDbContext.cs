@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using ClubEventDiary.Model;
 
 namespace ClubWebDiary.Models
 {
@@ -13,6 +14,8 @@ namespace ClubWebDiary.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ClubDiaryDbContext>());
+
+            modelBuilder.Configurations.Add(new EventConfiguration());
         }
 
         public DbSet<Event> Events { get; set; }
